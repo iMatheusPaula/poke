@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+
+        <ion-title>Favoritos</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div *ngIf="this.favoritesService.favorites.length === 0" class="ion-text-center ion-padding">
+        <ion-text color="medium">
+            <h5>Nenhum Pokémon favorito ainda</h5>
+            <p>Adicione Pokémon aos favoritos clicando no ícone de coração.</p>
+        </ion-text>
+    </div>
+
+    <ion-list *ngIf="this.favoritesService.favorites.length > 0">
+        @for (pokemon of this.favoritesService.favorites; track pokemon.id; ) {
+            <ion-item [routerLink]="['/pokemon', pokemon.id]">
+                <ion-avatar slot="start">
+                    <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemon.id + '.png'"
+                         alt="avatar"
+                    />
+                </ion-avatar>
+
+                <ion-label class="ion-text-capitalize">{{ pokemon.name }}</ion-label>
+
+                <ion-icon
+                        name="heart"
+                        color="danger"
+                        slot="end"
+                        (click)="this.favoritesService.toggleFavorite(pokemon)"
+                />
+            </ion-item>
+        }
+    </ion-list>
+</ion-content>

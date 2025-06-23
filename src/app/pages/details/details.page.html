@@ -6,6 +6,16 @@
         <ion-title class="ion-text-capitalize">
             {{ pokemon?.name }}
         </ion-title>
+
+        <ion-buttons slot="end" *ngIf="pokemon">
+            <ion-button (click)="toggleFavorite()">
+                <ion-icon
+                        [name]="this.favoritesService.isFavorite(pokemon.id) ? 'heart' : 'heart-outline'"
+                        [color]="this.favoritesService.isFavorite(pokemon.id) ? 'danger' : ''"
+                        slot="icon-only"
+                />
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 

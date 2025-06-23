@@ -17,11 +17,16 @@ import {
     IonList,
     IonProgressBar, IonSpinner,
     IonTitle,
-    IonToolbar, ToastController
+    IonToolbar, ToastController,
+    IonButton,
+    IonIcon
 } from '@ionic/angular/standalone';
 import {PokeapiService} from "../../services/pokeapi.service";
-import {PokemonDetail} from "../../services/types";
+import {FavoritesService} from "../../services/favorites.service";
+import {Pokemon, PokemonDetail} from "../../services/types";
 import {ActivatedRoute} from "@angular/router";
+import {addIcons} from "ionicons"
+import {heart, heartOutline} from "ionicons/icons";
 
 @Component({
     selector: 'app-details',
@@ -47,7 +52,9 @@ import {ActivatedRoute} from "@angular/router";
         IonProgressBar,
         CommonModule,
         FormsModule,
-        IonSpinner
+        IonSpinner,
+        IonButton,
+        IonIcon
     ]
 })
 export class DetailsPage implements OnInit {
@@ -57,8 +64,10 @@ export class DetailsPage implements OnInit {
     constructor(
         private readonly pokeapi: PokeapiService,
         private readonly route: ActivatedRoute,
-        private readonly toastController: ToastController
+        private readonly toastController: ToastController,
+        protected readonly favoritesService: FavoritesService
     ) {
+        addIcons({heart, heartOutline});
     }
 
     ngOnInit() {
@@ -72,7 +81,7 @@ export class DetailsPage implements OnInit {
             const id: string | null = this.route.snapshot.paramMap.get('id');
 
             if (!id) {
-                await this.showToast('ID do Pokémon não encontrado.');
+                await this.showToast('ID do Pokémon não encontrado.', 'danger');
                 return;
             }
 
@@ -84,10 +93,11 @@ export class DetailsPage implements OnInit {
         }
     }
 
-    async showToast(message: string): Promise<void> {
+    async showToast(message: string, color: 'success' | 'danger'): Promise<void> {
         const toast = await this.toastController.create({
             message: message,
-            color: 'danger',
+            color: color,
+            duration: 1000,
         });
 
         await toast.present();
@@ -133,5 +143,25 @@ export class DetailsPage implements OnInit {
 
     getStatPercentage(statValue: number): number {
         return Math.min(statValue / 255, 1);
+    }
+
+    async toggleFavorite(): Promise<void> {
+        if (!this.pokemon) {
+            return;
+        }
+
+        const pokemonForFavorite: Pokemon = {
+            id: this.pokemon.id,
+            name: this.pokemon.name,
+            url: ''
+        };
+
+        this.favoritesService.toggleFavorite(pokemonForFavorite);
+
+        const message = this.favoritesService.isFavorite(this.pokemon.id)
+            ? `${this.pokemon.name} adicionado aos favoritos!`
+            : `${this.pokemon.name} removido dos favoritos!`;
+
+        await this.showToast(message, 'success');
     }
 }
