@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Pokemon, PaginatedResponse} from "./types";
+import {Pokemon, PaginatedResponse, PokemonDetail} from "./types";
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +23,14 @@ export class PokeapiService {
                     };
                 });
 
+                return data;
+            });
+    }
+
+    async getById(id: number): Promise<PokemonDetail> {
+        return await fetch(`${this.apiUrl}/${id}`)
+            .then(res => res.json())
+            .then((data: PokemonDetail) => {
                 return data;
             });
     }
