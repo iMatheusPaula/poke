@@ -12,13 +12,14 @@ import {
 } from '@ionic/angular/standalone';
 import {PokeapiService} from "../../services/pokeapi.service";
 import {InfiniteScrollCustomEvent} from "@ionic/angular";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
     styleUrls: ['./home.page.scss'],
     standalone: true,
-    imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonAvatar, IonLabel, IonInfiniteScroll, IonInfiniteScrollContent, CommonModule, FormsModule]
+    imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonAvatar, IonLabel, IonInfiniteScroll, IonInfiniteScrollContent, CommonModule, FormsModule, RouterLink]
 })
 export class HomePage implements OnInit {
     public items: any[] = [];

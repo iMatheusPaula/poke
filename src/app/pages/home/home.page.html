@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
     <ion-list>
         @for (item of items; track item;) {
-            <ion-item>
+            <ion-item [routerLink]="['/pokemon', item.id]" detail="true">
                 <ion-avatar slot="start">
                     <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + item.id + '.png'"
                          alt="avatar"/>
