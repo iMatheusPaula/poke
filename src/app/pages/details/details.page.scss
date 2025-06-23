@@ -1,0 +1,18 @@
+.type-chip {
+  color: white;
+}
+
+.stat-container {
+  display: flex;
+  align-items: center;
+  width: 150px;
+}
+
+.stat-value {
+  margin-right: 8px;
+}
+
+ion-progress-bar {
+  height: 8px;
+  border-radius: 4px;
+}
