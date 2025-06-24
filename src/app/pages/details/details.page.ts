@@ -152,12 +152,6 @@ export class DetailsPage implements OnInit {
             url: ''
         };
 
-        this.favoritesService.toggleFavorite(pokemonForFavorite);
-
-        const message = this.favoritesService.isFavorite(this.pokemon.id)
-            ? `${this.pokemon.name} adicionado aos favoritos!`
-            : `${this.pokemon.name} removido dos favoritos!`;
-
-        await this.toastService.show(message, 'success');
+        await this.favoritesService.toggleFavorite(pokemonForFavorite);
     }
 }

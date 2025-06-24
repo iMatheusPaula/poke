@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Pokemon} from '../pokeapi/types';
+import {ToastService} from "../toast/toast.service";
 
 @Injectable({
     providedIn: 'root'
@@ -8,11 +9,11 @@ export class FavoritesService {
     private readonly STORAGE_KEY: string = 'favorite_pokemons';
     public favorites: Pokemon[] = [];
 
-    constructor() {
+    constructor(private readonly toastService: ToastService) {
         this.load();
     }
 
-    private load(): void {
+    private async load(): Promise<void> {
         try {
             const favorites = localStorage.getItem(this.STORAGE_KEY);
 
@@ -20,6 +21,7 @@ export class FavoritesService {
                 this.favorites = JSON.parse(favorites);
             }
         } catch (error) {
+            await this.toastService.show('Erro ao carregar favoritos', 'danger');
             console.error(error);
         }
     }
@@ -34,9 +36,9 @@ export class FavoritesService {
         }
     }
 
-    toggleFavorite(pokemon: Pokemon): void {
+    async toggleFavorite(pokemon: Pokemon): Promise<void> {
         try {
-            this.load();
+            await this.load();
             const index = this.favorites.findIndex((favoritePokemon: Pokemon) => favoritePokemon.id === pokemon.id);
 
             if (index > -1) {
@@ -46,7 +48,14 @@ export class FavoritesService {
             }
 
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.favorites));
+
+            const message = this.isFavorite(pokemon.id)
+                ? `${pokemon.name} adicionado aos favoritos!`
+                : `${pokemon.name} removido dos favoritos!`;
+
+            await this.toastService.show(message, 'success');
         } catch (error) {
+            await this.toastService.show('Erro ao atualizar favoritos', 'danger');
             console.error(error);
         }
     }

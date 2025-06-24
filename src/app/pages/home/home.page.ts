@@ -15,6 +15,8 @@ import {
 import {PokeapiService} from "../../services/pokeapi/pokeapi.service";
 import {InfiniteScrollCustomEvent} from "@ionic/angular";
 import {RouterLink} from "@angular/router";
+import {Pokemon} from "../../services/pokeapi/types";
+import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
     selector: 'app-home',
@@ -40,16 +42,19 @@ import {RouterLink} from "@angular/router";
     ]
 })
 export class HomePage implements OnInit {
-    public items: any[] = [];
+    public items: Pokemon[] = [];
     public isLoading: boolean = false;
     private offset: number = 0;
     private limit: number = 20;
     private count: number = 0;
 
-    constructor(private readonly pokeapi: PokeapiService) {
+    constructor(
+        private readonly pokeapi: PokeapiService,
+        private readonly toastService: ToastService
+    ) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.loadPokemons();
     }
 
@@ -60,29 +65,29 @@ export class HomePage implements OnInit {
             const response = await this.pokeapi.getAll(this.limit, this.offset);
 
             if (!response) {
-                return;
+                throw new Error('No response from PokeAPI');
             }
+
             this.count = response.count;
             this.offset += response.results.length;
             this.items = [...this.items, ...response.results];
-
         } catch (error) {
+            await this.toastService.show('Erro ao carregar os Pokémons. Por favor, tente novamente mais tarde.', 'danger');
             console.error(error);
         } finally {
             this.isLoading = false;
         }
     }
 
-    onIonInfinite(event: InfiniteScrollCustomEvent) {
+    async onIonInfinite(event: InfiniteScrollCustomEvent): Promise<void> {
         const noMoreData: boolean = this.offset >= this.count;
 
         if (this.isLoading || noMoreData) {
-            if (event) {
-                event.target.complete();
-            }
+            await event.target.complete();
+            await this.toastService.show('Não há mais Pokémons para carregar.', 'danger');
             return;
         }
 
-        this.loadPokemons();
+        await this.loadPokemons();
     }
 }
