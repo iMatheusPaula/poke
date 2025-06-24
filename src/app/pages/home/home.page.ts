@@ -10,7 +10,7 @@ import {
     IonTitle,
     IonToolbar,
     IonButtons,
-    IonButton
+    IonButton, IonSpinner, IonText
 } from '@ionic/angular/standalone';
 import {PokeapiService} from "../../services/pokeapi/pokeapi.service";
 import {InfiniteScrollCustomEvent} from "@ionic/angular";
@@ -40,7 +40,9 @@ import {PokemonImageComponent} from "../../components/pokemon-image/pokemon-imag
         CommonModule,
         FormsModule,
         RouterLink,
-        PokemonImageComponent
+        PokemonImageComponent,
+        IonSpinner,
+        IonText
     ]
 })
 export class HomePage implements OnInit {

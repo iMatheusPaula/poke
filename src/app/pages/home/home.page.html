@@ -11,11 +11,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-list>
-        @for (item of items; track item;) {
+    <div *ngIf="isLoading" class="ion-text-center ion-margin-top">
+        <ion-spinner name="circles"></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && items.length === 0" class="ion-text-center ion-padding">
+        <ion-text color="medium">
+            <h5>Nenhum Pokémon encontrado</h5>
+            <p>Tente novamente mais tarde.</p>
+        </ion-text>
+    </div>
+
+    <ion-list *ngIf="!isLoading && items.length > 0">
+        @for (item of items; track item; ) {
             <ion-item [routerLink]="['/pokemon', item.id]" detail="true">
                 <ion-avatar slot="start">
-                    <app-pokemon-image [pokemonId]="item.id" />
+                    <app-pokemon-image [pokemonId]="item.id"/>
                 </ion-avatar>
                 <ion-label>{{ item.name | titlecase }}</ion-label>
             </ion-item>
