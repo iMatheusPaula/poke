@@ -20,9 +20,7 @@
         @for (pokemon of this.favoritesService.favorites; track pokemon.id; ) {
             <ion-item [routerLink]="['/pokemon', pokemon.id]">
                 <ion-avatar slot="start">
-                    <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemon.id + '.png'"
-                         alt="avatar"
-                    />
+                    <app-pokemon-image [pokemonId]="pokemon.id"/>
                 </ion-avatar>
 
                 <ion-label class="ion-text-capitalize">{{ pokemon.name }}</ion-label>

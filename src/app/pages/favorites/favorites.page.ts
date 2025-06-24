@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import {FavoritesService} from '../../services/favorites/favorites.service';
 import {RouterLink} from '@angular/router';
+import {PokemonImageComponent} from '../../components/pokemon-image/pokemon-image.component';
 
 @Component({
     selector: 'app-favorites',
@@ -38,7 +39,8 @@ import {RouterLink} from '@angular/router';
         IonText,
         CommonModule,
         FormsModule,
-        RouterLink
+        RouterLink,
+        PokemonImageComponent
     ]
 })
 export class FavoritesPage implements OnInit {

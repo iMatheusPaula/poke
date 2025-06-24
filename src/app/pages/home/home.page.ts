@@ -17,6 +17,7 @@ import {InfiniteScrollCustomEvent} from "@ionic/angular";
 import {RouterLink} from "@angular/router";
 import {Pokemon} from "../../services/pokeapi/types";
 import {ToastService} from "../../services/toast/toast.service";
+import {PokemonImageComponent} from "../../components/pokemon-image/pokemon-image.component";
 
 @Component({
     selector: 'app-home',
@@ -38,7 +39,8 @@ import {ToastService} from "../../services/toast/toast.service";
         IonButton,
         CommonModule,
         FormsModule,
-        RouterLink
+        RouterLink,
+        PokemonImageComponent
     ]
 })
 export class HomePage implements OnInit {
