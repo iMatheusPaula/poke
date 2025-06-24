@@ -61,7 +61,7 @@ import {ToastService} from "../../services/toast/toast.service";
     ]
 })
 export class DetailsPage implements OnInit {
-    public pokemon: PokemonDetail | null = null;
+    public pokemon!: PokemonDetail;
     public isLoading: boolean = false;
 
     constructor(
@@ -153,5 +153,15 @@ export class DetailsPage implements OnInit {
         };
 
         await this.favoritesService.toggleFavorite(pokemonForFavorite);
+    }
+
+    get images(): string[] {
+        return [
+            this.pokemon.sprites.other['official-artwork'].front_default,
+            this.pokemon.sprites.other['official-artwork'].front_shiny,
+            this.pokemon.sprites.other['home'].front_default,
+            this.pokemon.sprites.other['home'].front_shiny,
+            this.pokemon.sprites.other['dream_world'].front_default
+        ].filter(item => item !== null);
     }
 }

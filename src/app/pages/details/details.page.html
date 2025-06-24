@@ -4,7 +4,7 @@
             <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title class="ion-text-capitalize">
-            {{ pokemon?.name }}
+            {{ pokemon.name }}
         </ion-title>
 
         <ion-buttons slot="end" *ngIf="pokemon">
@@ -33,39 +33,8 @@
                         autoplay="true"
                         slides-per-view="1"
                 >
-                    <swiper-slide *ngIf="pokemon.sprites.other['official-artwork'].front_default">
-                        <ion-img
-                                [src]="pokemon.sprites.other['official-artwork'].front_default"
-                                alt="{{ pokemon.name }}"
-                        />
-                    </swiper-slide>
-
-                    <swiper-slide *ngIf="pokemon.sprites.other['official-artwork'].front_shiny">
-                        <ion-img
-                                [src]="pokemon.sprites.other['official-artwork'].front_shiny"
-                                alt="{{ pokemon.name }}"
-                        />
-                    </swiper-slide>
-
-                    <swiper-slide *ngIf="pokemon.sprites.other['home'].front_default">
-                        <ion-img
-                                [src]="pokemon.sprites.other['home'].front_default"
-                                alt="{{ pokemon.name }}"
-                        />
-                    </swiper-slide>
-
-                    <swiper-slide *ngIf="pokemon.sprites.other['home'].front_shiny">
-                        <ion-img
-                                [src]="pokemon.sprites.other['home'].front_shiny"
-                                alt="{{ pokemon.name }}"
-                        />
-                    </swiper-slide>
-
-                    <swiper-slide *ngIf="pokemon.sprites.other['dream_world'].front_default">
-                        <ion-img
-                                [src]="pokemon.sprites.other['dream_world'].front_default"
-                                alt="{{ pokemon.name }}"
-                        />
+                    <swiper-slide *ngFor="let image of images">
+                        <ion-img [src]="image" alt="{{ pokemon.name }}"/>
                     </swiper-slide>
                 </swiper-container>
             </ion-card-content>
