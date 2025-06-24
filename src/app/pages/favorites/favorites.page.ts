@@ -15,7 +15,7 @@ import {
     IonIcon,
     IonText
 } from '@ionic/angular/standalone';
-import {FavoritesService} from '../../services/favorites.service';
+import {FavoritesService} from '../../services/favorites/favorites.service';
 import {RouterLink} from '@angular/router';
 
 @Component({

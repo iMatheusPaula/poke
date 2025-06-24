@@ -12,7 +12,7 @@ import {
     IonButtons,
     IonButton
 } from '@ionic/angular/standalone';
-import {PokeapiService} from "../../services/pokeapi.service";
+import {PokeapiService} from "../../services/pokeapi/pokeapi.service";
 import {InfiniteScrollCustomEvent} from "@ionic/angular";
 import {RouterLink} from "@angular/router";
 

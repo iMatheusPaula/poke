@@ -21,9 +21,9 @@ import {
     IonButton,
     IonIcon
 } from '@ionic/angular/standalone';
-import {PokeapiService} from "../../services/pokeapi.service";
-import {FavoritesService} from "../../services/favorites.service";
-import {Pokemon, PokemonDetail} from "../../services/types";
+import {PokeapiService} from "../../services/pokeapi/pokeapi.service";
+import {FavoritesService} from "../../services/favorites/favorites.service";
+import {Pokemon, PokemonDetail} from "../../services/pokeapi/types";
 import {ActivatedRoute} from "@angular/router";
 import {addIcons} from "ionicons"
 import {heart, heartOutline} from "ionicons/icons";
