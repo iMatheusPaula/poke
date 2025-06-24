@@ -17,7 +17,7 @@ import {
     IonList,
     IonProgressBar, IonSpinner,
     IonTitle,
-    IonToolbar, ToastController,
+    IonToolbar,
     IonButton,
     IonIcon
 } from '@ionic/angular/standalone';
@@ -28,6 +28,7 @@ import {ActivatedRoute} from "@angular/router";
 import {addIcons} from "ionicons"
 import {heart, heartOutline} from "ionicons/icons";
 import {register} from 'swiper/element/bundle';
+import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
     selector: 'app-details',
@@ -66,8 +67,8 @@ export class DetailsPage implements OnInit {
     constructor(
         private readonly pokeapi: PokeapiService,
         private readonly route: ActivatedRoute,
-        private readonly toastController: ToastController,
-        protected readonly favoritesService: FavoritesService
+        protected readonly favoritesService: FavoritesService,
+        private readonly toastService: ToastService
     ) {
         addIcons({heart, heartOutline});
         register();
@@ -84,26 +85,17 @@ export class DetailsPage implements OnInit {
             const id: string | null = this.route.snapshot.paramMap.get('id');
 
             if (!id) {
-                await this.showToast('ID do Pokémon não encontrado.', 'danger');
+                await this.toastService.show('ID do Pokémon não encontrado.', 'danger');
                 return;
             }
 
             this.pokemon = await this.pokeapi.getById(parseInt(id));
         } catch (error) {
+            await this.toastService.show(`Erro ao carregar Pokémon`, 'danger');
             console.error(error);
         } finally {
             this.isLoading = false;
         }
-    }
-
-    async showToast(message: string, color: 'success' | 'danger'): Promise<void> {
-        const toast = await this.toastController.create({
-            message: message,
-            color: color,
-            duration: 1000,
-        });
-
-        await toast.present();
     }
 
     getTypeColor(type: string): string {
@@ -150,6 +142,7 @@ export class DetailsPage implements OnInit {
 
     async toggleFavorite(): Promise<void> {
         if (!this.pokemon) {
+            await this.toastService.show('Pokémon não encontrado.', 'danger');
             return;
         }
 
@@ -165,6 +158,6 @@ export class DetailsPage implements OnInit {
             ? `${this.pokemon.name} adicionado aos favoritos!`
             : `${this.pokemon.name} removido dos favoritos!`;
 
-        await this.showToast(message, 'success');
+        await this.toastService.show(message, 'success');
     }
 }
