@@ -26,11 +26,49 @@
 
     <div *ngIf="pokemon && !isLoading">
         <ion-card>
-            <ion-img
-                    [src]="pokemon.sprites.other['official-artwork'].front_default"
-                    alt="{{ pokemon.name }}"
-            >
-            </ion-img>
+            <ion-card-content>
+                <swiper-container
+                        class="pokemon-swiper"
+                        pagination="true"
+                        autoplay="true"
+                        slides-per-view="1"
+                >
+                    <swiper-slide *ngIf="pokemon.sprites.other['official-artwork'].front_default">
+                        <ion-img
+                                [src]="pokemon.sprites.other['official-artwork'].front_default"
+                                alt="{{ pokemon.name }}"
+                        />
+                    </swiper-slide>
+
+                    <swiper-slide *ngIf="pokemon.sprites.other['official-artwork'].front_shiny">
+                        <ion-img
+                                [src]="pokemon.sprites.other['official-artwork'].front_shiny"
+                                alt="{{ pokemon.name }}"
+                        />
+                    </swiper-slide>
+
+                    <swiper-slide *ngIf="pokemon.sprites.other['home'].front_default">
+                        <ion-img
+                                [src]="pokemon.sprites.other['home'].front_default"
+                                alt="{{ pokemon.name }}"
+                        />
+                    </swiper-slide>
+
+                    <swiper-slide *ngIf="pokemon.sprites.other['home'].front_shiny">
+                        <ion-img
+                                [src]="pokemon.sprites.other['home'].front_shiny"
+                                alt="{{ pokemon.name }}"
+                        />
+                    </swiper-slide>
+
+                    <swiper-slide *ngIf="pokemon.sprites.other['dream_world'].front_default">
+                        <ion-img
+                                [src]="pokemon.sprites.other['dream_world'].front_default"
+                                alt="{{ pokemon.name }}"
+                        />
+                    </swiper-slide>
+                </swiper-container>
+            </ion-card-content>
         </ion-card>
 
         <ion-card>

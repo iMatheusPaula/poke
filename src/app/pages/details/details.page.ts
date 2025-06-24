@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
@@ -27,12 +27,14 @@ import {Pokemon, PokemonDetail} from "../../services/types";
 import {ActivatedRoute} from "@angular/router";
 import {addIcons} from "ionicons"
 import {heart, heartOutline} from "ionicons/icons";
+import {register} from 'swiper/element/bundle';
 
 @Component({
     selector: 'app-details',
     templateUrl: './details.page.html',
     styleUrls: ['./details.page.scss'],
     standalone: true,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     imports: [
         IonContent,
         IonHeader,
@@ -68,6 +70,7 @@ export class DetailsPage implements OnInit {
         protected readonly favoritesService: FavoritesService
     ) {
         addIcons({heart, heartOutline});
+        register();
     }
 
     ngOnInit() {

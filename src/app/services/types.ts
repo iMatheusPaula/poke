@@ -49,11 +49,17 @@ export type PokemonStat = {
 }
 
 export type PokemonSprites = {
-    front_default: string,
-    back_default: string,
     other: {
         'official-artwork': {
-            front_default: string
-        }
+            front_default: string | null,
+            front_shiny: string | null
+        },
+        'dream_world': {
+            front_default: string | null
+        },
+        'home': {
+            front_default: string | null,
+            front_shiny: string | null
+        },
     }
 }
