@@ -22,5 +22,7 @@ localStorage.
 
 ## Instalação
 
-1. Instale as dependências: `npm install`
-2. Execute o servidor de desenvolvimento: `ionic serve`
+1. Instale o ionic cli `npm install -g @ionic/cli`
+2. Instale as dependências: `npm install`
+3. Execute o servidor de desenvolvimento: `ionic serve`
+4. Executar os testes `ng test`
