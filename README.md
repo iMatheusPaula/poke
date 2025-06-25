@@ -26,3 +26,19 @@ localStorage.
 2. Instale as dependências: `npm install`
 3. Execute o servidor de desenvolvimento: `ionic serve`
 4. Executar os testes `ng test`
+
+## Documentação Técnica
+
+Para mais detalhes sobre o projeto consulte a [Documentação Técnica](TECHNICAL.md).
+
+## Screenshots
+
+Listagem de Pokémon:
+![1.png](screenshots/1.png)
+
+Detalhes do Pokémon:
+![2.png](screenshots/2.png)
+![3.png](screenshots/3.png)
+
+Favoritos:
+![4.png](screenshots/4.png)
