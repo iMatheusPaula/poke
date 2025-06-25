@@ -28,7 +28,6 @@ export class FavoritesService {
 
     isFavorite(id: number): boolean {
         try {
-            this.load();
             return this.favorites.some((pokemon: Pokemon) => pokemon.id === id);
         } catch (error) {
             console.error(error);
